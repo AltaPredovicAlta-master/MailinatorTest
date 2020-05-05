@@ -274,37 +274,51 @@ public class EmailTest {
 	}
 
 	public String genphonenumber() {
+		
+		// create object of Random class
 		Random rand = new Random();
+		
+		// generate random number as phone number
 		int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
 		int num2 = rand.nextInt(743);
 		int num3 = rand.nextInt(10000);
 
+		// set format if random number is zero 
 		DecimalFormat df3 = new DecimalFormat("000"); // 3 zeros
 		DecimalFormat df4 = new DecimalFormat("0000"); // 4 zeros
 
+		// concatenate all random number as per phone number format 
 		String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
 
+		// return phone number
 		return phoneNumber;
 
 	}
 
 	public void updateproFile(String value, String Case, String status) throws IOException {
 
+		// create object of faker which was added into POM.xml
 		Faker faker = new Faker();
 
+		// to Generate random data for test case process
 		String firstName = faker.name().firstName();
 		String lastName = faker.name().lastName();
+		
+		// phone number will be Generate by using genphonenumber method 
 		String phone = genphonenumber();
 		String email = firstName + lastName + "@gmail.com";
 		
+		// create object for read and write RandomData properties file as input and output stream
 		FileOutputStream fileOut = null;
         FileInputStream fileIn = null;
         
+        // create object of properties class for set key and value into the properties file 
             Properties configProperty = new Properties();
             
             if(value.equalsIgnoreCase("APITestData1") && Case.equalsIgnoreCase("Case1"))
             {
             
+            	// load RandomData properties for update and create key values
             File file = new File("./configs/RandomData2.properties");
             fileIn = new FileInputStream(file);
             configProperty.load(fileIn);
