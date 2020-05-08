@@ -360,9 +360,9 @@ public class EmailTest {
 		*/
 	}
 
-	@Test(enabled = false)
+	@Test(dependsOnMethods = {"APITestData"})
 	public void APITestData2() throws IOException {
-
+		System.out.println("APITestData2");
 		updateproFile("APITestData1","Case1","DataSaved");
 
 		String statusvalue = DataProviderFactory.getRandomDataProperty().getValue("Case1status");
@@ -390,6 +390,7 @@ public class EmailTest {
 	@Test
 	public void APITestData() throws IOException {
 
+		System.out.println("APITestData");
 		//updateproFile("APITestData1");
 		String  requiresTTY = "false";
 		String isCareRecipient = "true";
@@ -401,6 +402,24 @@ public class EmailTest {
 		/////// Call API
 
 		Response res = given()
+				  .log().all()
+				  //. header("Content-Type","application/json")
+				  //. header("APIKey","sAUvHEgIxduLmPiwoJy0FelsW0GqcjLgqrRKAz4RIPw=")
+				  //. header("DeviceID", "357470096094051")
+				 // . header("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyQ29kZSI6IjMxOTMxOSIsIk1vYmlsZU5vIjoiOTIzMjEyNDg0Nzk0IiwibmJmIjoxNTc0Njc3NzI4LCJleHAiOjE1OTM1OTM5NDUyOCwiaWF0IjoxNTc0Njc3NzI4fQ.6an-tGD8zSLqXP7kF17GGAsRm7-07n4Gzv1XTBK0GYA")
+				  . body("{\n" + "  \"name\": \"morpheus\",\n" +
+						  		 "  \"job\": \"leader\" \n" + 
+						  	 "}")
+				  .when()
+				  . post("https://reqres.in/api/create")
+				  .then().assertThat()
+				  . statusCode(400)
+				  . extract().response();
+		  
+		  String headerValue = res.header("Authorization");
+		  System.out.println(headerValue);
+		
+		/*Response res = given()
 				  .log().all()
 				  . header("Content-Type","application/json")
 				  . header("APIKey","sAUvHEgIxduLmPiwoJy0FelsW0GqcjLgqrRKAz4RIPw=")
@@ -449,7 +468,7 @@ public class EmailTest {
 				  . extract().response();
 		  
 		  String headerValue = res.header("Authorization");
-		  System.out.println(headerValue);
+		  System.out.println(headerValue);*/
 		
 		
 		  /*Response res = given()
