@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" ignored="4" total="5" passed="0">
+<testng-results skipped="1" failed="1" ignored="3" total="5" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5347" started-at="2020-05-04T15:56:14 PKT" finished-at="2020-05-04T15:56:19 PKT">
+  <suite name="N11 Test Suite" duration-ms="5713" started-at="2020-05-06T00:28:27 PKT" finished-at="2020-05-06T00:28:33 PKT">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5347" started-at="2020-05-04T15:56:14 PKT" finished-at="2020-05-04T15:56:19 PKT">
+    <test name="EmailTestCase" duration-ms="5713" started-at="2020-05-06T00:28:27 PKT" finished-at="2020-05-06T00:28:33 PKT">
       <class name="com.MailinatorTest.MailinatorTest.EmailTest">
-        <test-method status="FAIL" signature="APITestData()[pri:0, instance:com.MailinatorTest.MailinatorTest.EmailTest@5f282abb]" name="APITestData" duration-ms="5275" started-at="2020-05-04T15:56:14 PKT" finished-at="2020-05-04T15:56:19 PKT">
+        <test-method status="FAIL" signature="APITestData()[pri:0, instance:com.MailinatorTest.MailinatorTest.EmailTest@3b088d51]" name="APITestData" duration-ms="5638" started-at="2020-05-06T00:28:27 PKT" finished-at="2020-05-06T00:28:33 PKT">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[1 expectation failed.
-Expected status code <200> but was <400>.
+Expected status code <400> but was <201>.
 ]]>
             </message>
             <full-stacktrace>
               <![CDATA[java.lang.AssertionError: 1 expectation failed.
-Expected status code <200> but was <400>.
+Expected status code <400> but was <201>.
 
 at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -62,7 +62,7 @@ at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1217)
 at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuperN(ScriptBytecodeAdapter.java:144)
 at io.restassured.internal.ValidatableResponseImpl.statusCode(ValidatableResponseImpl.groovy:142)
 at io.restassured.internal.ValidatableResponseImpl.statusCode(ValidatableResponseImpl.groovy)
-at com.MailinatorTest.MailinatorTest.EmailTest.APITestData(EmailTest.java:434)
+at com.MailinatorTest.MailinatorTest.EmailTest.APITestData(EmailTest.java:416)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -97,7 +97,39 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- APITestData -->
+        <test-method status="SKIP" signature="APITestData2()[pri:0, instance:com.MailinatorTest.MailinatorTest.EmailTest@3b088d51]" name="APITestData2" duration-ms="0" started-at="2020-05-06T00:28:33 PKT" depends-on-methods="com.MailinatorTest.MailinatorTest.EmailTest.APITestData" finished-at="2020-05-06T00:28:33 PKT">
+          <exception class="java.lang.Throwable">
+            <message>
+              <![CDATA[Method EmailTest.APITestData2()[pri:0, instance:com.MailinatorTest.MailinatorTest.EmailTest@3b088d51] depends on not successfully finished methods]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Throwable: Method EmailTest.APITestData2()[pri:0, instance:com.MailinatorTest.MailinatorTest.EmailTest@3b088d51] depends on not successfully finished methods
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:99)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.util.ArrayList.forEach(ArrayList.java:1257)
+at org.testng.TestRunner.privateRun(TestRunner.java:770)
+at org.testng.TestRunner.run(TestRunner.java:591)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+at org.testng.TestNG.runSuites(TestNG.java:1032)
+at org.testng.TestNG.run(TestNG.java:1000)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Throwable -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- APITestData2 -->
       </class> <!-- com.MailinatorTest.MailinatorTest.EmailTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- EmailTestCase -->
+  </suite> <!-- N11 Test Suite -->
 </testng-results>

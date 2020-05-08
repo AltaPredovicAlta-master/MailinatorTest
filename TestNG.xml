@@ -8,6 +8,7 @@
 			<class name="com.MailinatorTest.MailinatorTest.EmailTest">
 				<methods>
 					<include name="APITestData" ></include>
+					<include name="APITestData2" ></include>
 				</methods>
 			</class>
 		</classes>
