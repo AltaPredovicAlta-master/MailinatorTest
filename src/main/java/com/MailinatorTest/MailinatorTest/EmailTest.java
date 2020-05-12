@@ -360,7 +360,7 @@ public class EmailTest {
 		*/
 	}
 
-	@Test(dependsOnMethods = {"APITestData"})
+	@Test(enabled = false)
 	public void APITestData2() throws IOException {
 		System.out.println("APITestData2");
 		updateproFile("APITestData1","Case1","DataSaved");
@@ -387,7 +387,7 @@ public class EmailTest {
 
 	}
 
-	@Test
+	@Test (enabled = false)
 	public void APITestData() throws IOException {
 
 		System.out.println("APITestData");
@@ -537,30 +537,40 @@ public class EmailTest {
 			// Find number of rows in excel file
 
 			int rowCount = sh1.getLastRowNum() - sh1.getFirstRowNum();
-
+			
 			System.out.println("rowsCount :" + rowCount);
 			// Create a loop over all the rows of excel file to read it
 
 			for (int i = 1; i < rowCount + 1; i++) {
 
 				Row row = sh1.getRow(i);
-
+				
 				// Create a loop to print cell values in a row
-
+				
+				if(row==null){
+                    sh1.getRow(i+1);
+                     continue;
+                 }
+				
 				for (int j = 0; j < row.getLastCellNum(); j++) {
-
+					
 					// Print Excel data in console
 					ExcelData = row.getCell(j).getStringCellValue();
-					// System.out.println(ExcelData);
+					
 
 					if (row.getCell(j) != null && (row.getCell(j).toString().equalsIgnoreCase(ExcelData))) {
 						sh1.removeRow(row);
-
+						//sh1.shiftRows( 4, sh1.getLastRowNum(), -1);
+						
 						System.out.println("Data Remove :" + ExcelData);
 						// sheet.shiftRows(i, lastIndex, -1);
+						
+						
 					}
 				}
+				break;
 			}
+			
 			FileOutputStream fileOut = new FileOutputStream(src);
 			wb.write(fileOut);
 			fileOut.close();
@@ -574,8 +584,15 @@ public class EmailTest {
 		}
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void ExcelTestData() throws IOException {
+		ReadExcelData();
+		
+		Assert.assertEquals(false, true);
+	}
+	
+	@Test (dependsOnMethods =  {"ExcelTestData"})
+	public void ExcelTestData2() throws IOException {
 		ReadExcelData();
 	}
 }
