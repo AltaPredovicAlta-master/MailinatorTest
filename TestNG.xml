@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="N11 Test Suite">
+<suite name="N11 Test Suite" parallel="methods" thread-count="2" >
 
 	<test name="EmailTestCase">
 		<classes>
 			<class name="com.MailinatorTest.MailinatorTest.EmailTest">
 				<methods>
-					<include name="APITestData" ></include>
-					<include name="APITestData2" ></include>
+					<include name="ExcelTestData" ></include>
+					<include name="ExcelTestData2" ></include>
 				</methods>
 			</class>
 		</classes>

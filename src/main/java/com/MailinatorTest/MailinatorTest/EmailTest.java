@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -51,6 +52,7 @@ import org.json.simple.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -66,7 +68,7 @@ public class EmailTest {
 	Date emailDateTime = null;
 	String output = null;
 
-	@Test(enabled = false)
+	@Test (enabled = false)
 	public void EmailTestCase() throws InterruptedException, ParseException {
 
 		/*
@@ -84,7 +86,7 @@ public class EmailTest {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 
 		Thread.sleep(2000);
-
+		
 		/*
 		 * get count of all email from inbox
 		 */
@@ -143,12 +145,13 @@ public class EmailTest {
 				if (emailsubject.compareToIgnoreCase("Fwd: Cares-QA Verify your email address") == 0) {
 					// click on verify link
 					// WebDriverWait wait1 = new WebDriverWait(driver, 500);
-					wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Verify and activate")))
-							.click();
+										
+					//wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Verify and activate"))).click();
+					
 					System.out.println("step5 : click on Verify and activate button");
 				} else if (emailsubject
 						.compareToIgnoreCase("Fwd: [QA Environment] New invite to join care circle") == 0) {
-					wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Join Care Circle"))).click();
+					//wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Join Care Circle"))).click();
 					System.out.println("step5 : click on Join Care Circle on button");
 				}
 
@@ -162,8 +165,7 @@ public class EmailTest {
 
 				// click on back to inbox after closed the current browser and complete the
 				// process
-				wait.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath("//*[@id=\"msgpane\"]/div/div/div[2]/a"))).click();
+				//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"msgpane\"]/div/div/div[2]/a"))).click();
 
 				System.out.println("step7 : back to inbox");
 
@@ -175,8 +177,7 @@ public class EmailTest {
 
 				// click on back to inbox link
 				WebDriverWait wait1 = new WebDriverWait(driver, 20);
-				wait1.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath("//*[@id=\"msgpane\"]/div/div/div[2]/a"))).click();
+				//wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"msgpane\"]/div/div/div[2]/a"))).click();
 
 				System.out.println("step8 : back to inbox");
 			}
@@ -392,7 +393,7 @@ public class EmailTest {
 
 		System.out.println("APITestData");
 		//updateproFile("APITestData1");
-		String  requiresTTY = "false";
+		boolean  requiresTTY = false;
 		String isCareRecipient = "true";
 		String middlename = "";
 		String fName =  DataProviderFactory.getRandomDataProperty().getValue("Case1fname");
@@ -400,24 +401,6 @@ public class EmailTest {
 		String phone = DataProviderFactory.getRandomDataProperty().getValue("Case1phone");
 		String email = DataProviderFactory.getRandomDataProperty().getValue("Case1email");
 		/////// Call API
-
-		Response res = given()
-				  .log().all()
-				  //. header("Content-Type","application/json")
-				  //. header("APIKey","sAUvHEgIxduLmPiwoJy0FelsW0GqcjLgqrRKAz4RIPw=")
-				  //. header("DeviceID", "357470096094051")
-				 // . header("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyQ29kZSI6IjMxOTMxOSIsIk1vYmlsZU5vIjoiOTIzMjEyNDg0Nzk0IiwibmJmIjoxNTc0Njc3NzI4LCJleHAiOjE1OTM1OTM5NDUyOCwiaWF0IjoxNTc0Njc3NzI4fQ.6an-tGD8zSLqXP7kF17GGAsRm7-07n4Gzv1XTBK0GYA")
-				  . body("{\n" + "  \"name\": \"morpheus\",\n" +
-						  		 "  \"job\": \"leader\" \n" + 
-						  	 "}")
-				  .when()
-				  . post("https://reqres.in/api/create")
-				  .then().assertThat()
-				  . statusCode(400)
-				  . extract().response();
-		  
-		  String headerValue = res.header("Authorization");
-		  System.out.println(headerValue);
 		
 		/*Response res = given()
 				  .log().all()
@@ -425,41 +408,105 @@ public class EmailTest {
 				  . header("APIKey","sAUvHEgIxduLmPiwoJy0FelsW0GqcjLgqrRKAz4RIPw=")
 				  . header("DeviceID", "357470096094051")
 				  . header("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyQ29kZSI6IjMxOTMxOSIsIk1vYmlsZU5vIjoiOTIzMjEyNDg0Nzk0IiwibmJmIjoxNTc0Njc3NzI4LCJleHAiOjE1OTM1OTM5NDUyOCwiaWF0IjoxNTc0Njc3NzI4fQ.6an-tGD8zSLqXP7kF17GGAsRm7-07n4Gzv1XTBK0GYA")
-				  . body("{\n" + "  \"requiresTTY\": \"" + requiresTTY + "\"," + "\n" +
-						  		 "  \"firstName\": \"" + fName + "\"," + "\n" +  
-						  		 "  \"middlename\": \"" + middlename + "\"," + "\n" +
+				  . body("{\n" + "  \"name\": \"morpheus\",\n" +
+						  		 "  \"job\": \"leader\" \n" + 
+						  	 "}")
+				  .when()
+				  . post("https://reqres.in/api/create")
+				  .then().assertThat()
+				  . statusCode(201)
+				  . extract().response();
+		  
+		  String headerValue = res.header("Authorization");
+		  System.out.println(headerValue);*/
+		
+		/*Response res = given()
+				  .log().all()
+				  . header("Content-Type","application/json")
+				  . header("APIKey","sAUvHEgIxduLmPiwoJy0FelsW0GqcjLgqrRKAz4RIPw=")
+				  . header("DeviceID", "357470096094051")
+				  . header("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyQ29kZSI6IjMxOTMxOSIsIk1vYmlsZU5vIjoiOTIzMjEyNDg0Nzk0IiwibmJmIjoxNTc0Njc3NzI4LCJleHAiOjE1OTM1OTM5NDUyOCwiaWF0IjoxNTc0Njc3NzI4fQ.6an-tGD8zSLqXP7kF17GGAsRm7-07n4Gzv1XTBK0GYA")
+				  . body("{\n" + "  \"firstName\": \"" + fName + "\"," + "\n" +
+						  		 "  \"lastName\": \"" + lastName + "\"," + "\n" +  
+						  		 "  \"middleName\": \"" + middlename + "\"," + "\n" +
 						  		"  \"lastName\": \"" + lastName + "\"," + "\n" +
-						  		 "  \"language\": {" +
-												  		 "  \"value\": \"English\", \n" + 
-												  		 "  \"type\": \"Primary\" \n" +
-												  "}," +
-								"  \"phones\": [" +
+						  		"  \"addresses\": [" +
+						  							"{\n" +
+														"  \"line1\": \"245 Brookline AVE\", \n" + 
+														"  \"status\": \"Active\", \n" + 
+														"  \"city\": \"Brookline\", \n" + 
+														"  \"zip\": \"02446\", \n" + 
+														"  \"country\": \"US\", \n" + 
+														"  \"addressType\": \"Billing\", \n" + 
+														"  \"state\": \"CA\", \n" + 
+														"  \"county\": \"\", \n" +
+														"  \"facility\": \"\" \n" +
+													"}," +
+													"{\n" +
+														"  \"line1\": \"245 Brookline AVE\", \n" + 
+														"  \"status\": \"Active\", \n" + 
+														"  \"city\": \"Brookline\", \n" + 
+														"  \"zip\": \"02446\", \n" + 
+														"  \"country\": \"US\", \n" + 
+														"  \"addressType\": \"Mailing\", \n" + 
+														"  \"state\": \"MA\", \n" + 
+														"  \"county\": \"\", \n" +
+														"  \"facility\": \"\" \n" +
+												"}," +
 												"{\n" +
-													"  \"number\": \"" + phone + "\"," + "\n" +
-													"  \"type\": \"Home\", \n" + 
-													"  \"order\": 1 \n" +
-													"}" +
-												"]," +
+														"  \"line1\": \"245 Brookline AVE\", \n" + 
+														"  \"status\": \"Active\", \n" + 
+														"  \"city\": \"Brookline\", \n" + 
+														"  \"zip\": \"02446\", \n" + 
+														"  \"country\": \"US\", \n" + 
+														"  \"addressType\": \"Shipping\", \n" + 
+														"  \"state\": \"CA\", \n" + 
+														"  \"county\": \"\", \n" +
+														"  \"facility\": \"\" \n" +
+												"}," +
+												"{\n" +
+														"  \"line1\": \"445 CARDINAL AVE\", \n" + 
+														"  \"status\": \"Active\", \n" + 
+														"  \"city\": \"Indio\", \n" + 
+														"  \"zip\": \"92201\", \n" + 
+														"  \"country\": \"US\", \n" + 
+														"  \"addressType\": \"Home\", \n" + 
+														"  \"state\": \"CA\", \n" + 
+														"  \"county\": \"\", \n" +
+														"  \"facility\": \"\" \n" +
+												"}" +
+											"]," +
+								"  \"dateOfBirth\": \"1950-04-25\", \n" +
 								"  \"emails\": [" +
 												"{\n" +
 													"  \"address\": \"" + email + "\"," + "\n" +
 													"  \"type\": \"Personal\" \n" + 
 												"}" +
 											"]," +
-								"  \"isCareRecipient\": \"" + isCareRecipient + "\"," + "\n" +
-								"  \"dateOfBirth\": \"1943-09-03\", \n" + 
-								"  \"addresses\": [" +
-												"{\n" +
-													"  \"line1\": \"111 Lawrence St\", \n" + 
-													"  \"line2\": \"\", \n" + 
-													"  \"city\": \"Framingham\", \n" + 
-													"  \"zip\": \"01702\", \n" + 
-													"  \"country\": \"US\", \n" + 
-													"  \"addressType\": \"Home\", \n" + 
-													"  \"state\": \"MA\" \n" + 
-												"}" +
-										"]," +
-								"  \"gender\": \"Male\" \n" + 
+								"  \"firstNamePhonetic\": \"A\", \n" +
+								"  \"gender\": \"Female\", \n" +
+								"  \"language\": \"English\", \n" +
+								"  \"nickname\": \"Becky\", \n" + 
+								"  \"phones\": [" +
+													"{\n" +
+														"  \"number\": \"" + phone + "\"," + "\n" +
+														"  \"order\": \"0\", \n" + 
+														"  \"type\": \"Home\" \n" +
+													"}," +
+													"{\n" +
+														"  \"number\": \"" + phone + "\"," + "\n" +
+														"  \"order\": \"0\", \n" + 
+														"  \"type\": \"Cell\" \n" +
+													"}," +
+													"{\n" +
+														"  \"number\": \"" + phone + "\"," + "\n" +
+														"  \"order\": \"0\", \n" + 
+														"  \"type\": \"Work\" \n" +
+													"}" +
+												"]," +
+								"  \"requiresTTY\": false, \n" +
+								"  \"salutation\": \"Skol\", \n" + 
+								"  \"suffix\": \"Ms\" \n" +
 						  "}")
 				  .when()
 				  . post("https://altpay.company/GatewayConsumerService/ConsumerApp/LoadDiscounts")
@@ -584,15 +631,29 @@ public class EmailTest {
 		}
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void ExcelTestData() throws IOException {
 		ReadExcelData();
 		
 		Assert.assertEquals(false, true);
 	}
 	
-	@Test (dependsOnMethods =  {"ExcelTestData"})
+	@Test (enabled = false)
 	public void ExcelTestData2() throws IOException {
 		ReadExcelData();
+	}
+
+	@Test 
+	public void GetAPIcall()
+	{
+		
+		given()
+        .contentType(ContentType.JSON)
+        .pathParam("id", "2")
+    .when()
+    	.get("https://reqres.in/api/users/{id}")
+    .then()
+        .statusCode(200);
+		
 	}
 }
